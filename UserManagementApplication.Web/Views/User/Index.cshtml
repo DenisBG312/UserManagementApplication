@@ -4,7 +4,7 @@
     ViewData["Title"] = "Users";
 }
 
-<link href="~/css/user-index.css" rel="stylesheet"/>
+<link href="~/css/user-index.css" rel="stylesheet" />
 
 
 <div class="user-management">
@@ -64,73 +64,72 @@
     <div class="users-table">
         <table class="table table-hover mb-0">
             <thead>
-            <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Date of Birth</th>
-                <th>Phone Number</th>
-                <th>Email Address</th>
-                <th class="text-center">Actions</th>
-            </tr>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Date of Birth</th>
+                    <th>Phone Number</th>
+                    <th>Email Address</th>
+                    <th class="text-center">Actions</th>
+                </tr>
             </thead>
             <tbody>
-            @foreach (var user in Model.Users)
-            {
-                <tr>
-                    <td>@user.FirstName</td>
-                    <td>@user.LastName</td>
-                    <td>@user.DateOfBirth.ToShortDateString()</td>
-                    <td>@user.PhoneNumber</td>
-                    <td>@user.EmailAddress</td>
-                    <td class="text-center action-buttons">
-                        <a asp-action="Edit" asp-route-id="@user.Id" class="btn btn-warning btn-sm">
-                            <i class="fas fa-edit"></i> Edit
-                        </a>
-                        <a asp-action="Delete" asp-route-id="@user.Id" class="btn btn-danger btn-sm">
-                            <i class="fas fa-trash"></i> Delete
-                        </a>
-                    </td>
-                </tr>
-            }
+                @foreach (var user in Model.Users)
+                {
+                    <tr>
+                        <td>@user.FirstName</td>
+                        <td>@user.LastName</td>
+                        <td>@user.DateOfBirth.ToShortDateString()</td>
+                        <td>@user.PhoneNumber</td>
+                        <td>@user.EmailAddress</td>
+                        <td class="text-center action-buttons">
+                            <a asp-action="Edit" asp-route-id="@user.Id" class="btn btn-warning btn-sm">
+                                <i class="fas fa-edit"></i> Edit
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@user.Id" class="btn btn-danger btn-sm">
+                                <i class="fas fa-trash"></i> Delete
+                            </a>
+                        </td>
+                    </tr>
+                }
             </tbody>
         </table>
-        
-        @if (ViewBag.TotalPages > 0)
-        {
-            <nav class="pagination-container mt-3">
-                <ul class="pagination">
-                    <li class="page-item @(ViewBag.CurrentPage == 1 ? "disabled" : "")">
+
+        <nav class="pagination-container mt-3">
+            <ul class="pagination">
+                <li class="page-item @(ViewBag.CurrentPage == 1 ? "disabled" : "")">
+                    <a class="page-link" asp-action="Index"
+                       asp-route-page="@(ViewBag.CurrentPage - 1)"
+                       asp-route-searchTerm="@ViewBag.SearchTerm"
+                       asp-route-sortBy="@ViewBag.SortBy"
+                       asp-route-sortOrder="@ViewBag.SortOrder">
+                        <i class="fas fa-chevron-left"></i>
+                    </a>
+                </li>
+
+                @for (int i = 1; i <= ViewBag.TotalPages; i++)
+                {
+                    <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
                         <a class="page-link" asp-action="Index"
-                           asp-route-page="@(ViewBag.CurrentPage - 1)"
+                           asp-route-page="@i"
                            asp-route-searchTerm="@ViewBag.SearchTerm"
                            asp-route-sortBy="@ViewBag.SortBy"
-                           asp-route-sortOrder="@ViewBag.SortOrder">
-                            <i class="fas fa-chevron-left"></i>
-                        </a>
+                           asp-route-sortOrder="@ViewBag.SortOrder">@i</a>
                     </li>
-            
-                    @for (int i = 1; i <= ViewBag.TotalPages; i++)
-                    {
-                        <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
-                            <a class="page-link" asp-action="Index"
-                               asp-route-page="@i"
-                               asp-route-searchTerm="@ViewBag.SearchTerm"
-                               asp-route-sortBy="@ViewBag.SortBy"
-                               asp-route-sortOrder="@ViewBag.SortOrder">@i</a>
-                        </li>
-                    }
-            
-                    <li class="page-item @(ViewBag.CurrentPage == ViewBag.TotalPages ? "disabled" : "")">
-                        <a class="page-link" asp-action="Index"
-                           asp-route-page="@(ViewBag.CurrentPage + 1)"
-                           asp-route-searchTerm="@ViewBag.SearchTerm"
-                           asp-route-sortBy="@ViewBag.SortBy"
-                           asp-route-sortOrder="@ViewBag.SortOrder">
-                            <i class="fas fa-chevron-right"></i>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        }
+                }
+
+                <li class="page-item @(ViewBag.CurrentPage == ViewBag.TotalPages ? "disabled" : "")">
+                    <a class="page-link" asp-action="Index"
+                       asp-route-page="@(ViewBag.CurrentPage + 1)"
+                       asp-route-searchTerm="@ViewBag.SearchTerm"
+                       asp-route-sortBy="@ViewBag.SortBy"
+                       asp-route-sortOrder="@ViewBag.SortOrder">
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+
     </div>
 </div>

@@ -29,7 +29,7 @@ namespace UserManagementApplication.Web.Controllers
 
             if (!string.IsNullOrEmpty(searchTerm))
             {
-                response = await client.GetAsync($"/api/User/SearchUser?searchTerm={encodedSearchTerm}");
+                response = await client.GetAsync($"/api/User/SearchUser?searchTerm={encodedSearchTerm}&page={page}&pageSize={pageSize}");
             }
             else
             {

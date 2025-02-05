@@ -35,9 +35,9 @@ namespace UserManagementApplication.API.Controllers
         }
 
         [HttpGet("SearchUser")]
-        public async Task<IActionResult> SearchAsync(string searchTerm)
+        public async Task<IActionResult> SearchAsync(string searchTerm, int page = 1, int pageSize = 5)
         {
-            var users = await _userService.SearchAsync(searchTerm);
+            var users = await _userService.SearchAsync(searchTerm, page, pageSize);
             return Ok(users);
         }
 
