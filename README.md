@@ -106,7 +106,7 @@ https://localhost:7183/api/User
   ```
 
 - **Delete User**\
-  `DELETE /api/User/DeleteUser/{id}`
+  `DELETE /api/User/DeleteUser/{id}` (The application uses soft deletion)
 
 ---
 
