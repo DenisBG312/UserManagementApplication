@@ -10,10 +10,10 @@
 
 ---
 ## API Index View
-![Api index view](https://github.com/DenisBG312/UserManagementAplication/blob/master/UserManagementSystem.Web/Project-Pictures/API_index.png)
+![Api index view](https://github.com/DenisBG312/UserManagementApplication/blob/master/UserManagementApplication.Web/Project-Pictures/API_index.png)
 
 ## Web Index View
-![Api index view](https://github.com/DenisBG312/UserManagementAplication/blob/master/UserManagementSystem.Web/Project-Pictures/Web_index.png)
+![Api index view](https://github.com/DenisBG312/UserManagementApplication/blob/master/UserManagementApplication.Web/Project-Pictures/WEB_index.png)
 
 ## 💡 Tech Stack
 
