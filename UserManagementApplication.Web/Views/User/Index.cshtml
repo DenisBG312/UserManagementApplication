@@ -97,7 +97,7 @@
 
         <nav class="pagination-container mt-3">
             <ul class="pagination">
-                <li class="page-item @(ViewBag.CurrentPage == 1 ? "disabled" : "")">
+                <li class="page-item @((ViewBag.CurrentPage == 1 || ViewBag.TotalPages == 0) ? "disabled" : "")">
                     <a class="page-link" asp-action="Index"
                        asp-route-page="@(ViewBag.CurrentPage - 1)"
                        asp-route-searchTerm="@ViewBag.SearchTerm"
@@ -107,18 +107,27 @@
                     </a>
                 </li>
 
-                @for (int i = 1; i <= ViewBag.TotalPages; i++)
+                @if (ViewBag.TotalPages > 0)
                 {
-                    <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
-                        <a class="page-link" asp-action="Index"
-                           asp-route-page="@i"
-                           asp-route-searchTerm="@ViewBag.SearchTerm"
-                           asp-route-sortBy="@ViewBag.SortBy"
-                           asp-route-sortOrder="@ViewBag.SortOrder">@i</a>
+                    for (int i = 1; i <= ViewBag.TotalPages; i++)
+                    {
+                        <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                            <a class="page-link" asp-action="Index"
+                               asp-route-page="@i"
+                               asp-route-searchTerm="@ViewBag.SearchTerm"
+                               asp-route-sortBy="@ViewBag.SortBy"
+                               asp-route-sortOrder="@ViewBag.SortOrder">@i</a>
+                        </li>
+                    }
+                }
+                else
+                {
+                    <li class="page-item disabled">
+                        <span class="page-link">1</span>
                     </li>
                 }
 
-                <li class="page-item @(ViewBag.CurrentPage == ViewBag.TotalPages ? "disabled" : "")">
+                <li class="page-item @((ViewBag.CurrentPage == ViewBag.TotalPages || ViewBag.TotalPages == 0) ? "disabled" : "")">
                     <a class="page-link" asp-action="Index"
                        asp-route-page="@(ViewBag.CurrentPage + 1)"
                        asp-route-searchTerm="@ViewBag.SearchTerm"
