@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\UserManagementApplication.API.DTO\UserManagementApplication.API.Dto.csproj" />
+    <ProjectReference Include="..\UserManagementApplication.Data.Models\UserManagementApplication.Data.Models.csproj" />
+    <ProjectReference Include="..\UserManagementApplication.Web.Dtos\UserManagementApplication.Web.Dtos.csproj" />
+  </ItemGroup>
+
+</Project>

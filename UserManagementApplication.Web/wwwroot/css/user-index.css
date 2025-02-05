@@ -1,0 +1,141 @@
+﻿.user-management {
+    padding: 2rem 0;
+}
+
+.page-title {
+    color: #2c3e50;
+    margin-bottom: 2rem;
+    font-weight: 600;
+    position: relative;
+    padding-bottom: 0.5rem;
+}
+
+    .page-title:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 60px;
+        height: 4px;
+        background: #3498db;
+        border-radius: 2px;
+    }
+
+.search-box {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+}
+
+.search-input {
+    border-radius: 4px 0 0 4px !important;
+    border: 1px solid #dee2e6;
+    padding: 0.75rem 1rem;
+}
+
+.search-buttons .btn {
+    padding: 0.75rem 1.5rem;
+}
+
+.sort-section {
+    background: #ffffff;
+    padding: 1rem;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.sort-btn {
+    margin: 0 0.3rem;
+    transition: all 0.3s ease;
+}
+
+    .sort-btn:hover {
+        transform: translateY(-1px);
+    }
+
+.users-table {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+    .users-table thead {
+        background: #34495e;
+        color: white;
+    }
+
+    .users-table th {
+        padding: 1rem;
+        font-weight: 500;
+    }
+
+    .users-table td {
+        padding: 1rem;
+        vertical-align: middle;
+    }
+
+    .users-table tbody tr {
+        transition: all 0.2s ease;
+    }
+
+        .users-table tbody tr:hover {
+            background-color: #f8f9fa;
+        }
+
+.action-buttons .btn {
+    margin: 0 0.2rem;
+    padding: 0.4rem 1rem;
+    transition: all 0.3s ease;
+}
+
+.btn-create {
+    background: #2ecc71;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    transition: all 0.3s ease;
+}
+
+    .btn-create:hover {
+        background: #27ae60;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+.btn-warning {
+    background: #f1c40f;
+    border: none;
+    color: #2c3e50;
+}
+
+    .btn-warning:hover {
+        background: #f39c12;
+        color: #2c3e50;
+    }
+
+.btn-danger {
+    background: #e74c3c;
+    border: none;
+}
+
+    .btn-danger:hover {
+        background: #c0392b;
+    }
+
+@media (max-width: 768px) {
+    .sort-section {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .sort-btn {
+        margin: 0.3rem 0;
+    }
+
+    .users-table {
+        display: block;
+        overflow-x: auto;
+    }
+}

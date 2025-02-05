@@ -1,0 +1,98 @@
+﻿@model IEnumerable<UserManagementApplication.Data.Models.User>
+
+@{
+    ViewData["Title"] = "Users";
+}
+
+<link href="~/css/user-index.css" rel="stylesheet"/>
+
+
+<div class="user-management">
+    <h2 class="page-title">Users Management</h2>
+
+    <div class="search-box">
+        <form asp-action="Index" method="get">
+            <div class="input-group">
+                <input type="text" class="form-control search-input"
+                       name="searchTerm"
+                       value="@ViewBag.SearchTerm"
+                       placeholder="Search users...">
+                <div class="input-group-append search-buttons">
+                    <button class="btn btn-primary" type="submit">
+                        <i class="fas fa-search"></i> Search
+                    </button>
+                    <a class="btn btn-outline-secondary" asp-action="Index">
+                        <i class="fas fa-times"></i> Clear
+                    </a>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="sort-section d-flex align-items-center mb-4">
+        <span class="me-3 text-muted">Sort by:</span>
+        <a asp-action="Index"
+           asp-route-sortBy="LastName"
+           asp-route-sortOrder="@((ViewBag.SortBy == "LastName" && ViewBag.SortOrder == "asc") ? "desc" : "asc")"
+           asp-route-searchTerm="@ViewBag.SearchTerm"
+           class="sort-btn btn @(ViewBag.SortBy == "LastName" ? "btn-primary" : "btn-outline-secondary")">
+            <i class="fas fa-user"></i> Last Name
+            @if (ViewBag.SortBy == "LastName")
+            {
+                <i class="fas fa-arrow-@(ViewBag.SortOrder == "asc" ? "up" : "down")"></i>
+            }
+        </a>
+        <a asp-action="Index"
+           asp-route-sortBy="DateOfBirth"
+           asp-route-sortOrder="@((ViewBag.SortBy == "DateOfBirth" && ViewBag.SortOrder == "asc") ? "desc" : "asc")"
+           asp-route-searchTerm="@ViewBag.SearchTerm"
+           class="sort-btn btn @(ViewBag.SortBy == "DateOfBirth" ? "btn-primary" : "btn-outline-secondary")">
+            <i class="fas fa-calendar"></i> Birth Date
+            @if (ViewBag.SortBy == "DateOfBirth")
+            {
+                <i class="fas fa-arrow-@(ViewBag.SortOrder == "asc" ? "up" : "down")"></i>
+            }
+        </a>
+    </div>
+
+    <div class="mb-4 text-end">
+        <a href="@Url.Action("Create", "User")" class="btn btn-create">
+            <i class="fas fa-plus"></i> Create New User
+        </a>
+    </div>
+
+    <div class="users-table">
+        <table class="table table-hover mb-0">
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Date of Birth</th>
+                    <th>Phone Number</th>
+                    <th>Email Address</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in Model)
+                {
+                    <tr>
+                        <td>@user.FirstName</td>
+                        <td>@user.LastName</td>
+                        <td>@user.DateOfBirth.ToShortDateString()</td>
+                        <td>@user.PhoneNumber</td>
+                        <td>@user.EmailAddress</td>
+                        <td class="text-center action-buttons">
+                            <a asp-action="Edit" asp-route-id="@user.Id" class="btn btn-warning btn-sm">
+                                <i class="fas fa-edit"></i> Edit
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@user.Id" class="btn btn-danger btn-sm">
+                                <i class="fas fa-trash"></i> Delete
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
