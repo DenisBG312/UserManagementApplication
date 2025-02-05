@@ -9,6 +9,11 @@
 - **ASP.NET Core Web API**: Powerful and secure back-end.
 
 ---
+## API Index View
+![Api index view](https://github.com/DenisBG312/UserManagementAplication/blob/master/UserManagementSystem.Web/Project-Pictures/API_index.png)
+
+## Web Index View
+![Api index view](https://github.com/DenisBG312/UserManagementAplication/blob/master/UserManagementSystem.Web/Project-Pictures/Web_index.png)
 
 ## 💡 Tech Stack
 
