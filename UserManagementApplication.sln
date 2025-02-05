@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserManagementApplication.S
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserManagementApplication.API.Dto", "UserManagementApplication.API.DTO\UserManagementApplication.API.Dto.csproj", "{B0AFD2C8-98F5-4811-8707-138307C1708B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserManagementApplication.Web.Dtos", "UserManagementApplication.Web.Dtos\UserManagementApplication.Web.Dtos.csproj", "{41C04B8D-BB00-45EA-AF06-6740F5AA977A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserManagementApplication.Web.Dtos", "UserManagementApplication.Web.Dtos\UserManagementApplication.Web.Dtos.csproj", "{41C04B8D-BB00-45EA-AF06-6740F5AA977A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
