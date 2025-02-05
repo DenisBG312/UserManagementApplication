@@ -15,24 +15,37 @@ namespace UserManagementApplication.Services.Data
         {
             _userRepository = userRepository;
         }
-        public async Task<IEnumerable<UserDto>> GetAllAsync()
+        public async Task<PagedUserResponse> GetAllAsync(int page = 1, int pageSize = 5)
         {
             var users = await _userRepository.GetAllAsync();
 
-            var notDeletedUsers = users.Where(u => !u.IsDeleted);
+            var notDeletedUsers = users.Where(u => !u.IsDeleted).ToList();
 
-            var userDtos = notDeletedUsers.Select(user => new UserDto
+            int totalUsers = notDeletedUsers.Count;
+            int totalPages = (int)Math.Ceiling((double)totalUsers / pageSize);
+
+            var pagedUsers = notDeletedUsers
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .Select(user => new UserDto
+                {
+                    Id = user.Id,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    DateOfBirth = user.DateOfBirth,
+                    PhoneNumber = user.PhoneNumber,
+                    EmailAddress = user.EmailAddress
+                })
+                .ToList();
+
+            return new PagedUserResponse
             {
-                Id = user.Id,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                DateOfBirth = user.DateOfBirth,
-                PhoneNumber = user.PhoneNumber,
-                EmailAddress = user.EmailAddress
-            });
-
-            return userDtos;
+                Users = pagedUsers,
+                TotalPages = totalPages,
+                CurrentPage = page
+            };
         }
+
 
         public async Task<UserDto?> GetByIdAsync(Guid id)
         {
@@ -53,28 +66,41 @@ namespace UserManagementApplication.Services.Data
             return userDto;
         }
 
-        public async Task<IEnumerable<UserDto>> SearchAsync(string searchTerm)
+        public async Task<PagedUserResponse> SearchAsync(string searchTerm, int page = 1, int pageSize = 5)
         {
             var users = await _userRepository.GetAllAsync();
 
             var filteredUsers = users
                 .Where(u => !u.IsDeleted)
                 .Where(u => u.FirstName.ToLower().Contains(searchTerm.ToLower()) ||
-                                                 u.LastName.ToLower().Contains(searchTerm.ToLower()) ||
-                                                 u.PhoneNumber.Contains(searchTerm) ||
-                                                 u.EmailAddress.ToLower().Contains(searchTerm.ToLower())).ToList();
+                            u.LastName.ToLower().Contains(searchTerm.ToLower()) ||
+                            u.PhoneNumber.Contains(searchTerm) ||
+                            u.EmailAddress.ToLower().Contains(searchTerm.ToLower()))
+                .ToList();
 
-            var userDtos = filteredUsers.Select(user => new UserDto
+            int totalUsers = filteredUsers.Count;
+            int totalPages = (int)Math.Ceiling((double)totalUsers / pageSize);
+
+            var pagedUsers = filteredUsers
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .Select(user => new UserDto
+                {
+                    Id = user.Id,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    DateOfBirth = user.DateOfBirth,
+                    PhoneNumber = user.PhoneNumber,
+                    EmailAddress = user.EmailAddress
+                })
+                .ToList();
+
+            return new PagedUserResponse
             {
-                Id = user.Id,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                DateOfBirth = user.DateOfBirth,
-                PhoneNumber = user.PhoneNumber,
-                EmailAddress = user.EmailAddress
-            });
-
-            return userDtos;
+                Users = pagedUsers,
+                TotalPages = totalPages,
+                CurrentPage = page
+            };
         }
 
         public async Task<string> CreateAsync(CreateUserDto userDto)

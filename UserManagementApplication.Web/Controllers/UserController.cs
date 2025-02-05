@@ -18,44 +18,51 @@ namespace UserManagementApplication.Web.Controllers
         public async Task<IActionResult> Index(
             string searchTerm,
             string sortBy = "LastName",
-            string sortOrder = "asc")
+            string sortOrder = "asc",
+            int page = 1,
+            int pageSize = 5)
         {
             var client = _httpClientFactory.CreateClient("UserApi");
             HttpResponseMessage response;
 
+            var encodedSearchTerm = string.IsNullOrEmpty(searchTerm) ? "" : Uri.EscapeDataString(searchTerm);
+
             if (!string.IsNullOrEmpty(searchTerm))
             {
-                response = await client.GetAsync($"/api/User/SearchUser?searchTerm={searchTerm}");
+                response = await client.GetAsync($"/api/User/SearchUser?searchTerm={encodedSearchTerm}");
             }
             else
             {
-                response = await client.GetAsync("/api/User/GetAllUsers");
+                response = await client.GetAsync($"/api/User/GetAllUsers?page={page}&pageSize={pageSize}");
             }
 
             if (response.IsSuccessStatusCode)
             {
-                var users = await response.Content.ReadFromJsonAsync<List<User>>();
+                var result = await response.Content.ReadFromJsonAsync<PagedUserResponse>();
 
-                users = sortBy switch
+                result.Users = sortBy switch
                 {
                     "LastName" => sortOrder == "asc"
-                        ? users.OrderBy(u => u.LastName).ToList()
-                        : users.OrderByDescending(u => u.LastName).ToList(),
+                        ? result.Users.OrderBy(u => u.LastName).ToList()
+                        : result.Users.OrderByDescending(u => u.LastName).ToList(),
                     "DateOfBirth" => sortOrder == "asc"
-                        ? users.OrderBy(u => u.DateOfBirth).ToList()
-                        : users.OrderByDescending(u => u.DateOfBirth).ToList(),
-                    _ => users
+                        ? result.Users.OrderBy(u => u.DateOfBirth).ToList()
+                        : result.Users.OrderByDescending(u => u.DateOfBirth).ToList(),
+                    _ => result.Users
                 };
 
+                ViewBag.TotalPages = result.TotalPages;
+                ViewBag.CurrentPage = result.CurrentPage;
+                ViewBag.SearchTerm = searchTerm;
                 ViewBag.SortBy = sortBy;
                 ViewBag.SortOrder = sortOrder;
-                ViewBag.SearchTerm = searchTerm;
 
-                return View(users);
+                return View(result);
             }
 
             return View("Error");
         }
+
 
         [HttpGet]
         public IActionResult Create()

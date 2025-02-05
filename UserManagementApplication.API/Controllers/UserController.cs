@@ -16,11 +16,11 @@ namespace UserManagementApplication.API.Controllers
         }
 
         [HttpGet("GetAllUsers")]
-        public async Task<IActionResult> GetAllAsync()
+        public async Task<IActionResult> GetAllAsync(int page = 1, int pageSize = 5)
         {
-            var users = await _userService.GetAllAsync();
+            var pagedUsers = await _userService.GetAllAsync(page, pageSize);
 
-            return Ok(users);
+            return Ok(pagedUsers);
         }
 
         [HttpGet("GetSpecificUser/{id}")]
